@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Featured Playlist</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="site-header">
+    <header>
         <h1>Music player Explorer</h1>
-        <nav class="nav-links">
-            <a href="featured.html">Featured</a>
+        <nav>
+            <a href="featured.html" class="active">Featured</a>
             <a href="index.html">All</a>
         </nav>
         
     </header>
+
+    <main class ="featured-container">
+        <div class="featured-header">
+            <h2 id="playlist-name">Playlist Name</h2>
+            <p id="playlist-author">By Author</p>
+        </div>
+        <button class="shuffle-button" onclick="shuffleSongs()">Shufflee</button>
+        <ul class="song-list" id="song-list"></ul>
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Music Playlist Explorer</p>
+    </footer>
+
+    <script src="data/data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

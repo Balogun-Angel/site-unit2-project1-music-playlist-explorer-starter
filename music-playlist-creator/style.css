@@ -8,11 +8,11 @@ body {
 
 
 header, footer {
-  background-color: #f4f4f4;     /* light gray background */
-  padding: 1.5rem;               /* space inside */
-  text-align: center;           /* center  text */
+  background-color: #f4f4f4;     
+  padding: 1.5rem;               
+  text-align: center;           
   font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /*  shadow for separation */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
   width: 100%;
   box-sizing: border-box;
 }
@@ -82,15 +82,15 @@ main {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* On hover: slightly enlarge and brighten */
+
 .like-icon:hover {
   transform: scale(1.2);
   opacity: 0.85;
 }
 
-/* Optional: add a class when clicked (if you implement toggle effect) */
+
 .liked {
-  color: #ff0033; /* Even bolder red when liked */
+  color: #ff0033; 
 }
 
 
@@ -321,4 +321,3 @@ header {
 .nav-links a:hover {
   color: #000;
 }
-
