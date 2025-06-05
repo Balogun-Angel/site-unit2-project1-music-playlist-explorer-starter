@@ -10,16 +10,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <!-- Your header content here -->
+    <header class="site-header">
+        <h1>Music player Explorer</h1>
+        <nav class="nav-links">
+            <a href="featured.html">Featured</a>
+            <a href="index.html">All</a>
+        </nav>
+        
     </header>
 
     <main> 
-        <!-- Your main content here -->
+        <section class="playlist-cards" id="playlist-gallery">
+        </section>
     </main>
+
+    <div class="modal-overlay" id="playlist-modal" style="display: none;">
+        <div class="modal-content" id="modal-content">
+
+        </div>
+    </div>
 
     <footer>
         <!-- Your footer content here -->
+         <p>&copy; 2025 Music Playlist Explorer</p>
     </footer>
     <script src="data/data.js"></script>
     <script src="script.js"></script>
