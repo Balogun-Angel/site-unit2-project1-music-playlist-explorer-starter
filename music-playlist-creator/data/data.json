@@ -117,7 +117,7 @@
     "playlist_name": "90's R&B",
     "playlist_author": "Vinyl Virtuoso",
     "playlist_art": "https://picsum.photos/seed/playlist3/400/300",
-    "likes": 123,
+    "likes": 0,
     "songs": [
       {
         "title": "Senorita",
@@ -193,7 +193,7 @@
     "playlist_name": "Throwback Jams",
     "playlist_author": "Tempo Tactician",
     "playlist_art": "https://picsum.photos/seed/playlist5/400/300",
-    "likes": 200,
+    "likes": 0,
     "songs": [
       {
         "title": "Stay",
