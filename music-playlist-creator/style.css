@@ -50,6 +50,7 @@ main {
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
+  position: relative;
 }
 
 .playlist-tile:hover {
@@ -63,7 +64,30 @@ main {
   border-radius: 8px;
   margin-bottom: 0.8rem;
 }
+.playlist-actions{
+    margin-top: 8px;
+    display:flex;
+    justify-content:space-between;
+    gap: 10px;
+    top: 8px;
+    right:8px;
 
+}
+
+.playlist-actions button{
+    padding: 4px;
+    border:none;
+    border-radius: 4px;
+    color: #444;
+    cursor: pointer;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+.playlist-actions button:hover{
+    transform: scale(1.2);
+    color: #000;
+}
 .author {
   font-size: 0.9rem;
   color: #777;

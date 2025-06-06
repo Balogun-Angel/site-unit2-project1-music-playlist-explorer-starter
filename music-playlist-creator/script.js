@@ -18,6 +18,10 @@ fetch("data/data.json")
       card.classList.add("playlist-tile");
 
       card.innerHTML = `
+      <div class="playlist-actions">
+       <button class ="edit-btn title="Edit Playlist">✎</button>
+       <button class="delete-btn title="Delete Playlist">🚮</button>
+       </div>
         <img src="${playlist.playlist_art}" alt="Playlist Cover" class="playlist-cover" />
         <h3>${playlist.playlist_name}</h3>
         <p class="author">${playlist.playlist_author}</p>
@@ -25,6 +29,7 @@ fetch("data/data.json")
           <span class="like-icon" role="button" title="Like this playlist">❤️</span>
           <span class="likes-count">${playlist.likes}</span>
        </p>
+       
       `;
 
       const likeIcon = card.querySelector(".like-icon");
@@ -51,6 +56,36 @@ fetch("data/data.json")
       card.addEventListener("click", () => openModal(playlist));
       //this is to keep adding the cards and not replacing them
       playlistContainer.appendChild(card);
+
+      card.querySelector(".edit-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        const newName = prompt(
+          "Enter new playlist name:",
+          playlist.playlist_name
+        );
+        const newAuthor = prompt(
+          "Enter new author name:",
+          playlist.playlist_author
+        );
+
+        if (newName && newAuthor) {
+          playlist.playlist_name = newName;
+          playlist.playlist_author = newAuthor;
+
+          card.querySelector("h3").textContent = newName;
+          card.querySelector(".author").textContent = newAuthor;
+        }
+      });
+
+      card.querySelector(".delete-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        const confirmDelete = confirm(
+          "Are you sure you want to delete this playlist?"
+        );
+        if (confirmDelete) {
+          card.remove();
+        }
+      });
     });
   })
   .catch((error) => {
@@ -167,26 +202,26 @@ if (document.getElementById("featured-container")) {
         </div>
         </div>
         `;
-    })
+    });
 }
 
 function displayRandomFeaturedPlaylist() {
   fetch("data/data.json")
-  .then((response) => response.json())
-  .then ((playlists) => {
-    const randomIndex = Math.floor(Math.random() * playlists.length);
-    const playlist = playlists[randomIndex];
+    .then((response) => response.json())
+    .then((playlists) => {
+      const randomIndex = Math.floor(Math.random() * playlists.length);
+      const playlist = playlists[randomIndex];
 
-    const playlistInfo = document.querySelector(".playlist-info");
-    const songList = document.querySelector(".song-list");
+      const playlistInfo = document.querySelector(".playlist-info");
+      const songList = document.querySelector(".song-list");
 
-    playlistInfo.innerHTML = `
+      playlistInfo.innerHTML = `
     <img src="${playlist.playlist_art}" alt="Playlist Cover">
     <h2>${playlist.playlist_name}</h2>
     <p><em>By ${playlist.playlist_author}</em></p>
     `;
 
-    songList.innerHTML = `
+      songList.innerHTML = `
       
       <ul>
        ${playlist.songs
@@ -205,13 +240,11 @@ function displayRandomFeaturedPlaylist() {
          .join("")}
         </ul>
          `;
-  })
-  .catch((error) => {
-    console.log("Failed to load playlist", error);
-  });
-
+    })
+    .catch((error) => {
+      console.log("Failed to load playlist", error);
+    });
 }
-  
 
 if (
   document.querySelector(".playlist-info") &&
