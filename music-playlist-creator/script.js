@@ -5,13 +5,19 @@ if (isFeaturedPage) {
   displayRandomFeaturedPlaylist();
 }
 
-if(!playlists|| playlists.length==0){
-  playlistContainer.innerHTML="<p> no playlist added </p>";
-}else{
-playlists.forEach((playlist) => {
-  const card = document.createElement("div");
-  card.classList.add("playlist-tile");
-  card.innerHTML = `
+fetch("data/data.json")
+  .then((response) => response.json())
+  .then((playlists) => {
+    if (!playlists || playlists.length == 0) {
+      playlistContainer.innerHTML = "<p> no playlist added </p>";
+      return;
+    }
+
+    playlists.forEach((playlist) => {
+      const card = document.createElement("div");
+      card.classList.add("playlist-tile");
+
+      card.innerHTML = `
         <img src="${playlist.playlist_art}" alt="Playlist Cover" class="playlist-cover" />
         <h3>${playlist.playlist_name}</h3>
         <p class="author">${playlist.playlist_author}</p>
@@ -21,31 +27,36 @@ playlists.forEach((playlist) => {
        </p>
       `;
 
-  const likeIcon = card.querySelector(".like-icon");
-  const likeCount = card.querySelector(".likes-count");
+      const likeIcon = card.querySelector(".like-icon");
+      const likeCount = card.querySelector(".likes-count");
 
-  let liked = false;
-  likeIcon.addEventListener("click", (e) => {
-    e.stopPropagation(); // prevent modal from opening
+      let liked = false;
+      likeIcon.addEventListener("click", (e) => {
+        e.stopPropagation(); // prevent modal from opening
 
-    if (!liked) {
-      playlist.likes++;
-      liked = true;
-      likeIcon.classList.add("liked");
-    } else {
-      playlist.likes--;
-      liked = false;
-      likeIcon.classList.remove("liked");
-    }
+        if (!liked) {
+          playlist.likes++;
+          liked = true;
+          likeIcon.classList.add("liked");
+        } else {
+          playlist.likes--;
+          liked = false;
+          likeIcon.classList.remove("liked");
+        }
 
-    likeCount.textContent = playlist.likes;
+        likeCount.textContent = playlist.likes;
+      });
+
+      //this is the event listener for the modal
+      card.addEventListener("click", () => openModal(playlist));
+      //this is to keep adding the cards and not replacing them
+      playlistContainer.appendChild(card);
+    });
+  })
+  .catch((error) => {
+    console.error("Error loading playlists: ", error);
+    playlistContainer.innerHTML = "<p>Failed to load playlists.<p>";
   });
-
-  // Add the card to the page
-  card.addEventListener("click", () => openModal(playlist));
-  playlistContainer.appendChild(card);
-});
-}
 
 const modal = document.getElementById("playlist-modal");
 const modalContent = document.getElementById("modal-content");
@@ -85,7 +96,7 @@ function openModal(playlist) {
 
   modal.style.display = "flex";
 
-  // ✅ SHUFFLE FUNCTIONALITY
+  // SHUFFLE FUNCTIONALITY
   const shuffleButton = document.getElementById("shuffle-button");
   const songList = document.getElementById("song-list");
 
@@ -124,56 +135,58 @@ modal.addEventListener("click", (e) => {
 // for my featured.html
 if (document.getElementById("featured-container")) {
   fetch("data/data.json")
-    .then((res) => res.json())
+    .then((res) => res.join())
     .then((data) => {
       const playlists = data;
       if (playlists.length === 0) return;
 
-      // Pick a random playlist
       const random = playlists[Math.floor(Math.random() * playlists.length)];
-
       const container = document.getElementById("featured-container");
+
       container.innerHTML = `
-        <div class="featured-layout">
-          <div class="featured-image">
-            <img src="${random.playlist_art}" alt="Playlist Cover" />
-          </div>
-          <div class="featured-details">
-            <h2>${random.playlist_name}</h2>
-            <p><em>By ${random.playlist_author}</em></p>
-            <ul>
-              ${random.songs
-                .map(
-                  (song) => `
-                  <li>
-                    <strong>${song.title}</strong><br />
-                    ${song.artist}<br />
-                    <small>${song.duration}</small>
-                  </li>
-                `
-                )
-                .join("")}
-            </ul>
-          </div>
+      <div class="featured-layout">
+      <div class= "featured-image">
+      <img src= "${random.playlist_art}" alt="Playlist Cover" />
+      </div>
+      <div class= "featured-details">
+      <h2>${random.playlist_name}</h2>
+      <p><em>By ${random.playlist_author}</em></p>
+      <ul>
+      ${random.songs
+        .map(
+          (song) => `
+          <li>
+          <strong>${song.title}</strong><br />
+          ${song.artist}br />
+          <small>${sessionStorage.duration}</small>
+          </li>
+          `
+        )
+        .join("")}
+        </ul>
         </div>
-      `;
-    });
+        </div>
+        `;
+    })
 }
 
 function displayRandomFeaturedPlaylist() {
-  const randomIndex = Math.floor(Math.random() * playlists.length);
-  const playlist = playlists[randomIndex];
+  fetch("data/data.json")
+  .then((response) => response.json())
+  .then ((playlists) => {
+    const randomIndex = Math.floor(Math.random() * playlists.length);
+    const playlist = playlists[randomIndex];
 
-  const playlistInfo = document.querySelector(".playlist-info");
-  const songList = document.querySelector(".song-list");
+    const playlistInfo = document.querySelector(".playlist-info");
+    const songList = document.querySelector(".song-list");
 
-  playlistInfo.innerHTML = `
+    playlistInfo.innerHTML = `
     <img src="${playlist.playlist_art}" alt="Playlist Cover">
     <h2>${playlist.playlist_name}</h2>
     <p><em>By ${playlist.playlist_author}</em></p>
     `;
 
-  songList.innerHTML = `
+    songList.innerHTML = `
       
       <ul>
        ${playlist.songs
@@ -192,7 +205,13 @@ function displayRandomFeaturedPlaylist() {
          .join("")}
         </ul>
          `;
+  })
+  .catch((error) => {
+    console.log("Failed to load playlist", error);
+  });
+
 }
+  
 
 if (
   document.querySelector(".playlist-info") &&
