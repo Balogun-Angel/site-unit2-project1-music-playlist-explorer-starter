@@ -95,7 +95,7 @@ Deployed Application (**required**): [Music Playlist Explorer Deployed Site](htt
   - [ x] The playlist grid view and playlist detail modal should update to display any changes (see Required Features, Criterion 1 & 2).
   - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS:** For ease of grading, please show yourself:
     - [ ] Editing all of a playlist's features (name, creator, AND songs)
-    - [ ] Editing some of a playlist's features (name, creator, OR songs) 
+    - [x ] Editing some of a playlist's features (name, creator, OR songs) 
 
 - [ x] **Delete Playlists**
   - [ x] Add a delete button to each playlist tile within the grid view.
@@ -130,9 +130,7 @@ Deployed Application (**required**): [Music Playlist Explorer Deployed Site](htt
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video actually renders and is playable when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+`ADD_EMBEDDED_CODE_HERE` https://www.loom.com/share/3fce6749a5e34f048873d7c23c96e6dd?sid=0362e89e-4be2-4a61-a72c-64dbce2d9709
 
 ### Reflection
 
